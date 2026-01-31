@@ -9,8 +9,12 @@ ros2 launch huaray_camera huaray_camera.launch.py
 ```
 
 dafault choose the **second** device. 
-if at **NUC**, change line 262: 
-const char* camera_key = device_list.pDevInfo[1].cameraKey; 
-to:
-const char* camera_key = device_list.pDevInfo[0].cameraKey; 
 
+if at **NUC**, change line 262: 
+```
+const char* camera_key = device_list.pDevInfo[1].cameraKey; 
+```
+to:
+```
+const char* camera_key = device_list.pDevInfo[0].cameraKey; 
+```
