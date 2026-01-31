@@ -1,0 +1,9 @@
+/huaray_camera:
+  ros__parameters:
+    camera_name: narrow_stereo
+    exposure_time: 4000.0
+    gain: 0.0
+    autocap: true
+    frame_rate: 249.0
+    frame_id: camera_optical_frame
+    interface_type: 0  # 0=All, 1=GigE, 2=USB3
