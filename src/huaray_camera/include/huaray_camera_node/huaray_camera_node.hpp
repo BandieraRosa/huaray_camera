@@ -16,7 +16,6 @@ class HuarayCameraNode : public rclcpp::Node
   ~HuarayCameraNode() override;
 
  private:
-  // 与原代码一致的状态机
   enum class HuarayStateEnum : uint8_t
   {
     STOPPED,
@@ -25,7 +24,7 @@ class HuarayCameraNode : public rclcpp::Node
 
   struct Parameters
   {
-    double exposure_time;  // us
+    double exposure_time;
     double gain;
     bool autocap;
     double frame_rate;
@@ -41,7 +40,6 @@ class HuarayCameraNode : public rclcpp::Node
     std::thread protect_thread;
   };
 
-  // === 核心逻辑 ===
   bool Read(cv::Mat& image, rclcpp::Time& stamp);
   void CaptureInit();
   void CaptureStop();
@@ -51,19 +49,16 @@ class HuarayCameraNode : public rclcpp::Node
   void SetEnumValue(const std::string& name, unsigned int value);
   void SetEnumSymbol(const std::string& name, const std::string& value);
 
-  // === 参数 ===
   Parameters params_;
   std::unique_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;
 
   sensor_msgs::msg::Image image_msg_;
   sensor_msgs::msg::CameraInfo camera_info_msg_;
 
-  // === SDK 句柄 ===
   IMV_HANDLE handle_{nullptr};
 
-  // === 相机状态标志 ===
-  std::atomic<bool> is_opened_{false};    // 相机是否已成功打开
-  std::atomic<bool> is_grabbing_{false};  // 相机是否正在采集
+  std::atomic<bool> is_opened_{false};
+  std::atomic<bool> is_grabbing_{false};
 
   std::atomic<HuarayStateEnum> state_{HuarayStateEnum::STOPPED};
   std::atomic<bool> running_{true};
@@ -71,7 +66,6 @@ class HuarayCameraNode : public rclcpp::Node
   std::thread capture_thread_;
   Protect guard_;
 
-  // ROS2 publisher
   image_transport::CameraPublisher camera_pub_;
 };
 }  // namespace HuarayCamera
